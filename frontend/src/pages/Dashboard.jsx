@@ -61,7 +61,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="flex gap-2 px-5 md:px-8 mb-4 overflow-x-auto pb-1">
+        <div className="flex gap-2 px-5 md:px-8 mb-4 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {FILTERS.map((f) => (
             <button key={f} onClick={() => setActiveFilter(f)}
               className={`flex-shrink-0 px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
