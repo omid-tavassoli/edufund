@@ -4,7 +4,9 @@
       "Bash(npm install *)",
       "Bash(npm run *)",
       "Bash(node index.js)",
-      "Bash(curl -s http://localhost:3001/health)"
+      "Bash(curl -s http://localhost:3001/health)",
+      "WebSearch",
+      "Bash(node -e \"const pkg = require\\('./node_modules/react-markdown/package.json'\\); console.log\\(pkg.version\\)\")"
     ]
   }
 }

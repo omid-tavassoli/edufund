@@ -10,7 +10,7 @@ const WOHNSITUATIONEN = ['Bei den Eltern', 'Eigene Wohnung', 'WG', 'Studentenwoh
 
 export default function Step2() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ wohnsituation: '', einkommen: '', elternEinkommen: '' })
+  const [form, setForm] = useState({ wohnsituation: '', einkommen: '', elternEinkommen: '', hatFoerderung: null, vorhandeneFoerderung: '' })
 
   const set = (field) => (e) => setForm((p) => ({ ...p, [field]: e.target.value }))
   const isValid = form.wohnsituation
@@ -36,16 +36,52 @@ export default function Step2() {
               {WOHNSITUATIONEN.map((w) => <option key={w} value={w}>{w}</option>)}
             </select>
 
-            <div className="relative">
-              <input type="number" placeholder="Monatliches Nettoeinkommen (Nebenjob etc.)"
-                value={form.einkommen} onChange={set('einkommen')} className={`${inputClass} pr-8`} />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm pointer-events-none">€</span>
+            <div>
+              <div className="relative">
+                <input type="number" placeholder="Monatliches Nettoeinkommen (Nebenjob etc.)"
+                  value={form.einkommen} onChange={set('einkommen')} className={`${inputClass} pr-8`} />
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm pointer-events-none">€</span>
+              </div>
+              <p className="text-xs text-gray-500 mt-1.5 pl-4">Optional</p>
             </div>
 
-            <div className="relative">
-              <input type="number" placeholder="Elterliches Einkommen (ungefähr)"
-                value={form.elternEinkommen} onChange={set('elternEinkommen')} className={`${inputClass} pr-8`} />
-              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm pointer-events-none">€</span>
+            <div>
+              <div className="relative">
+                <input type="number" placeholder="Elterliches Einkommen (ungefähr)"
+                  value={form.elternEinkommen} onChange={set('elternEinkommen')} className={`${inputClass} pr-8`} />
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm pointer-events-none">€</span>
+              </div>
+              <p className="text-xs text-gray-500 mt-1.5 pl-4">Optional</p>
+            </div>
+
+            <div>
+              <p className="text-gray-400 text-sm mb-2">Erhältst du bereits eine Förderung?</p>
+              <div className="flex gap-2">
+                {[{ val: true, label: 'Ja' }, { val: false, label: 'Nein' }].map(({ val, label }) => (
+                  <button
+                    key={label}
+                    type="button"
+                    onClick={() => setForm((p) => ({ ...p, hatFoerderung: val, vorhandeneFoerderung: val ? p.vorhandeneFoerderung : '' }))}
+                    className={`flex-1 py-4 rounded-2xl text-sm font-medium border transition-colors ${
+                      form.hatFoerderung === val
+                        ? 'bg-accent-primary border-accent-primary text-white'
+                        : 'bg-bg-card border-white/10 text-gray-400 hover:text-white'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+              {form.hatFoerderung === true && (
+                <input
+                  type="text"
+                  placeholder="Welche Förderung? (z. B. BAföG, Stipendium …)"
+                  value={form.vorhandeneFoerderung}
+                  onChange={set('vorhandeneFoerderung')}
+                  className={`${inputClass} mt-2`}
+                />
+              )}
+              <p className="text-xs text-gray-500 mt-1.5 pl-4">Optional</p>
             </div>
           </div>
 

@@ -5,7 +5,7 @@ import Step2 from './pages/onboarding/Step2'
 import Step3 from './pages/onboarding/Step3'
 import Dashboard from './pages/Dashboard'
 import Assistant from './pages/Assistant'
-import Deadlines from './pages/Deadlines'
+import AutoBewerbung from './pages/AutoBewerbung'
 import Profile from './pages/Profile'
 import Layout from './components/Layout'
 
@@ -35,7 +35,7 @@ export default function App() {
             <Route index element={<Navigate to="foerderungen" replace />} />
             <Route path="foerderungen" element={<Dashboard />} />
             <Route path="assistent" element={<Assistant />} />
-            <Route path="fristen" element={<Deadlines />} />
+            <Route path="fristen" element={<AutoBewerbung />} />
             <Route path="profil" element={<Profile />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />

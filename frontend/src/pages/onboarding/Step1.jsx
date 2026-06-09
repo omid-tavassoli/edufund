@@ -1,18 +1,112 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppWordmark } from '../../components/Logo'
+import SearchableSelect from '../../components/SearchableSelect'
 
 const inputClass =
   'w-full bg-bg-card border border-white/10 rounded-2xl px-4 py-4 text-white text-sm focus:outline-none focus:border-accent-primary transition-colors appearance-none'
 
 const HOCHSCHULEN = [
-  'TU Darmstadt', 'LMU München', 'TU München', 'Universität Hamburg',
-  'FU Berlin', 'HU Berlin', 'RWTH Aachen', 'Andere',
+  // Staatliche Universitäten
+  'Goethe-Universität Frankfurt am Main',
+  'TU Darmstadt',
+  'Justus-Liebig-Universität Gießen',
+  'Philipps-Universität Marburg',
+  'Universität Kassel',
+  // Staatliche Hochschulen (HAW/FH)
+  'Frankfurt University of Applied Sciences',
+  'Hochschule Darmstadt',
+  'Hochschule RheinMain',
+  'Technische Hochschule Mittelhessen (THM)',
+  'Hochschule Fulda',
+  'Hochschule Geisenheim University',
+  'Hochschule für Polizei und Verwaltung Hessen',
+  // Kunst- und Musikhochschulen
+  'Hochschule für Musik und Darstellende Kunst Frankfurt',
+  'Hochschule für Gestaltung Offenbach',
+  'Städelschule Frankfurt',
+  // Private Hochschulen
+  'Frankfurt School of Finance & Management',
+  'EBS Universität für Wirtschaft und Recht',
+  'Hochschule Fresenius',
+  'Wilhelm Büchner Hochschule',
+  'DIPLOMA Hochschule',
+  'Provadis Hochschule',
+  'Andere',
 ]
 
 const STUDIENGAENGE = [
-  'Informatik', 'Wirtschaftsinformatik', 'Maschinenbau', 'Elektrotechnik',
-  'BWL', 'VWL', 'Psychologie', 'Medizin', 'Jura', 'Andere',
+  // Ingenieurwissenschaften
+  'Maschinenbau',
+  'Elektrotechnik',
+  'Bauingenieurwesen',
+  'Wirtschaftsingenieurwesen',
+  'Luft- und Raumfahrttechnik',
+  'Fahrzeugtechnik',
+  'Verfahrenstechnik',
+  'Biomedizinische Technik',
+  'Umweltingenieurwesen',
+  'Mechatronik',
+  // Informatik & Mathematik
+  'Informatik',
+  'Wirtschaftsinformatik',
+  'Angewandte Informatik',
+  'Medieninformatik',
+  'Cybersecurity',
+  'Data Science',
+  'Mathematik',
+  'Statistik',
+  // Wirtschaft & Recht
+  'BWL',
+  'VWL',
+  'Finance',
+  'Accounting',
+  'Marketing',
+  'Wirtschaftsrecht',
+  'Jura',
+  'Steuerrecht',
+  // Naturwissenschaften
+  'Physik',
+  'Chemie',
+  'Biologie',
+  'Biochemie',
+  'Geowissenschaften',
+  'Pharmazie',
+  'Lebensmitteltechnologie',
+  // Medizin & Gesundheit
+  'Medizin',
+  'Zahnmedizin',
+  'Veterinärmedizin',
+  'Pflege',
+  'Physiotherapie',
+  'Ernährungswissenschaften',
+  'Public Health',
+  // Sozial- & Geisteswissenschaften
+  'Psychologie',
+  'Soziale Arbeit',
+  'Soziologie',
+  'Politikwissenschaft',
+  'Erziehungswissenschaft / Lehramt',
+  'Philosophie',
+  'Geschichte',
+  'Kommunikationswissenschaft',
+  'Sprachwissenschaft / Linguistik',
+  'Germanistik',
+  'Anglistik',
+  // Architektur & Gestaltung
+  'Architektur',
+  'Stadtplanung',
+  'Innenarchitektur',
+  'Industriedesign',
+  'Kommunikationsdesign',
+  'Mediendesign',
+  // Kunst, Musik & Medien
+  'Kunst',
+  'Musik',
+  'Film und Fernsehen',
+  'Journalismus',
+  // Andere
+  'Andere',
 ]
 
 export function ProgressBar({ step }) {
@@ -30,10 +124,10 @@ export function ProgressBar({ step }) {
 
 export default function Step1() {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ hochschule: '', studiengang: '', semester: '', studienort: '' })
+  const [form, setForm] = useState({ hochschule: '', studiengang: '', abschluss: '', semester: '', studienort: '' })
 
   const set = (field) => (e) => setForm((p) => ({ ...p, [field]: e.target.value }))
-  const isValid = form.hochschule && form.studiengang && form.semester && form.studienort
+  const isValid = form.hochschule && form.studiengang && form.abschluss && form.semester && form.studienort
 
   const handleNext = () => {
     const prev = JSON.parse(localStorage.getItem('ff_onboarding') || '{}')
@@ -56,10 +150,30 @@ export default function Step1() {
               {HOCHSCHULEN.map((h) => <option key={h} value={h}>{h}</option>)}
             </select>
 
-            <select value={form.studiengang} onChange={set('studiengang')} className={inputClass}>
-              <option value="" disabled>Studiengang</option>
-              {STUDIENGAENGE.map((s) => <option key={s} value={s}>{s}</option>)}
-            </select>
+            <SearchableSelect
+              value={form.studiengang}
+              onChange={(val) => setForm((p) => ({ ...p, studiengang: val }))}
+              options={STUDIENGAENGE}
+              placeholder="Studiengang"
+              className={inputClass}
+            />
+
+            <div className="flex gap-2">
+              {['Bachelor', 'Master', 'PhD'].map((deg) => (
+                <button
+                  key={deg}
+                  type="button"
+                  onClick={() => setForm((p) => ({ ...p, abschluss: deg }))}
+                  className={`flex-1 py-4 rounded-2xl text-sm font-medium border transition-colors ${
+                    form.abschluss === deg
+                      ? 'bg-accent-primary border-accent-primary text-white'
+                      : 'bg-bg-card border-white/10 text-gray-400 hover:text-white'
+                  }`}
+                >
+                  {deg}
+                </button>
+              ))}
+            </div>
 
             <input type="number" min="1" max="20" placeholder="Aktuelles Semester"
               value={form.semester} onChange={set('semester')} className={inputClass} />
