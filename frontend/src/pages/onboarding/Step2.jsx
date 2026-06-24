@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AppWordmark } from '../../components/Logo'
+import { AppLogo } from '../../components/Logo'
 import { ProgressBar } from './Step1'
 
 const inputClass =
@@ -24,7 +24,7 @@ export default function Step2() {
   return (
     <div className="min-h-screen bg-bg-primary flex flex-col md:items-center md:justify-center py-10 px-6">
       <div className="w-full max-w-md">
-        <AppWordmark className="text-lg mb-8" />
+        <AppLogo height={28} className="mb-4 ml-2" />
 
         <div className="md:bg-bg-card md:rounded-3xl md:p-8">
           <ProgressBar step={2} />

@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AppIcon, AppWordmark } from '../components/Logo'
 
 function Stat({ value, label }) {
   return (
@@ -41,9 +40,7 @@ export default function Landing() {
     <div className="min-h-screen bg-bg-primary flex flex-col md:flex-row">
       {/* Left / mobile: branding */}
       <div className="flex-1 flex flex-col items-center md:items-start justify-center px-8 md:px-16 pt-16 pb-8 md:py-20 text-center md:text-left">
-        <AppIcon size={64} />
-
-        <AppWordmark className="text-2xl mt-5 mb-1" />
+        <img src="/edufund_20.png" alt="EduFund" className="h-14 w-auto" />
 
         <div className="w-12 h-px bg-accent-primary my-8" />
 
@@ -68,7 +65,7 @@ export default function Landing() {
       {/* Right panel: desktop only */}
       <div className="hidden md:flex items-center justify-center w-96 px-10 border-l border-white/5 bg-bg-secondary">
         <div className="w-full bg-bg-card rounded-3xl p-8">
-          <AppIcon size={40} />
+          <img src="/edufund_20.png" alt="EduFund" className="h-9 w-auto" />
           <h3 className="text-white font-bold text-xl mt-4 mb-1">Jetzt beginnen</h3>
           <p className="text-gray-400 text-sm mb-6">Profil in 2 Minuten erstellen und passende Förderungen finden.</p>
           {buttons}

@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { AppWordmark } from '../components/Logo'
 
 const WELCOME = {
   role: 'assistant',
@@ -181,9 +180,7 @@ export default function Assistant() {
       <div className="flex-shrink-0 border-b border-white/5">
         <div className="max-w-3xl mx-auto px-5 md:px-8 pt-8 pb-4">
           <h1 className="text-xl font-bold text-white">Assistent</h1>
-          <p className="text-gray-500 text-xs mt-0.5">
-            <AppWordmark className="text-xs" /> Assistent
-          </p>
+          <p className="text-gray-500 text-xs mt-0.5">EduFund KI Assistent</p>
         </div>
       </div>
 

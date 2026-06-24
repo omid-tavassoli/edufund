@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { AppWordmark, AppIcon } from './Logo'
+import { AppLogo } from './Logo'
 
 function HomeIcon({ active, className = 'w-5 h-5' }) {
   return (
@@ -56,9 +56,8 @@ export default function Layout() {
     <div className="flex h-screen">
       {/* Desktop left sidebar */}
       <nav className="hidden md:flex flex-col w-56 flex-shrink-0 bg-bg-secondary border-r border-white/5">
-        <div className="px-5 py-6 flex items-center gap-3">
-          <AppIcon size={32} />
-          <AppWordmark className="text-lg" />
+        <div className="px-5 py-6">
+          <AppLogo height={28} />
         </div>
 
         <div className="flex flex-col gap-1 px-3 mt-2">
