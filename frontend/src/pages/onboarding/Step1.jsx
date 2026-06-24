@@ -6,6 +6,28 @@ import SearchableSelect from '../../components/SearchableSelect'
 const inputClass =
   'w-full bg-bg-card border border-white/10 rounded-2xl px-4 py-4 text-white text-sm focus:outline-none focus:border-accent-primary transition-colors appearance-none'
 
+const STUDIENORTE = [
+  'Bad Homburg vor der Höhe',
+  'Bad Nauheim',
+  'Bensheim',
+  'Darmstadt',
+  'Frankfurt am Main',
+  'Friedberg (Hessen)',
+  'Fulda',
+  'Geisenheim',
+  'Gießen',
+  'Hanau',
+  'Idstein',
+  'Kassel',
+  'Limburg an der Lahn',
+  'Marburg',
+  'Oberursel (Taunus)',
+  'Offenbach am Main',
+  'Rüsselsheim am Main',
+  'Wetzlar',
+  'Wiesbaden',
+]
+
 const HOCHSCHULEN = [
   // Staatliche Universitäten
   'Goethe-Universität Frankfurt am Main',
@@ -145,10 +167,13 @@ export default function Step1() {
           <h2 className="text-xl font-bold text-white mb-6">Erzähl uns von deinem Studium</h2>
 
           <div className="flex flex-col gap-3">
-            <select value={form.hochschule} onChange={set('hochschule')} className={inputClass}>
-              <option value="" disabled>Hochschule</option>
-              {HOCHSCHULEN.map((h) => <option key={h} value={h}>{h}</option>)}
-            </select>
+            <SearchableSelect
+              value={form.hochschule}
+              onChange={(val) => setForm((p) => ({ ...p, hochschule: val }))}
+              options={HOCHSCHULEN}
+              placeholder="Hochschule"
+              className={inputClass}
+            />
 
             <SearchableSelect
               value={form.studiengang}
@@ -178,8 +203,13 @@ export default function Step1() {
             <input type="number" min="1" max="20" placeholder="Aktuelles Semester"
               value={form.semester} onChange={set('semester')} className={inputClass} />
 
-            <input type="text" placeholder="Studienort"
-              value={form.studienort} onChange={set('studienort')} className={inputClass} />
+            <SearchableSelect
+              value={form.studienort}
+              onChange={(val) => setForm((p) => ({ ...p, studienort: val }))}
+              options={STUDIENORTE}
+              placeholder="Studienort"
+              className={inputClass}
+            />
           </div>
 
           <button onClick={handleNext} disabled={!isValid}
